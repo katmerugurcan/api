@@ -8,6 +8,11 @@ const server = express();
 server.use(express.json());
 server.use(express.static("public"));
 
+server.get('/', async (req, res) => {
+    const users = await setData.Get(`${baseUrl}/users`);
+    res.send(users);
+});
+
 server.get('/:path', async (req, res) => {
     const { path } = req.params;
     const data = await setData.Get(`${baseUrl}/${path}`);
