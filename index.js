@@ -1,10 +1,16 @@
 const express = require('express');
-const setData = require("./Tools/methods");
-const baseUrl = require('./Tools/svConfig');
+const setData = require("./scripts/Tools/methods");
+const { baseUrl, token } = require('./scripts/Tools/svConfig');
 
 const server = express();
 
 server.use(express.json({ extended: false }));
+
+const ngrok = require('ngrok');
+(async function () {
+    const url = await ngrok.connect();
+})();
+
 
 server.get('/:path', async (req, res) => {
     const { path } = req.params;
