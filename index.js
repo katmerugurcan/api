@@ -2,14 +2,11 @@ const express = require('express');
 const setData = require("./scripts/Tools/methods");
 const { baseUrl, token } = require('./scripts/Tools/svConfig');
 
+const PORT = process.env.PORT || 5000;
 const server = express();
 
-server.use(express.json({ extended: false }));
 
-const ngrok = require('ngrok');
-(async function () {
-    const url = await ngrok.connect();
-})();
+server.use(express.json({ extended: false }));
 
 
 server.get('/:path', async (req, res) => {
@@ -31,7 +28,7 @@ server.get("/:path/:id", async (req, res) => {
     res.status(200).json(data);
 });
 
-const PORT = process.env.PORT || 5000;
-server.listen(PORT, () => {
+
+server.listen(PORT, async () => {
     console.log(`http://localhost:${PORT} adresinden gelen istekler dinleniyor...`);
 });
